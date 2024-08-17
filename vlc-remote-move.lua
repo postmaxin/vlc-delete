@@ -32,16 +32,12 @@ The author is not responsible for damage caused by this extension.
 	}
 end
 
-function shell_escape(args)
-	local ret = {}
-	for _,a in pairs(args) do
-		s = tostring(a)
-		if s:match("[^A-Za-z0-9_/:=-]") then
-			s = "'"..s:gsub("'", "'\\''").."'"
-		end
-		table.insert(ret,s)
+function shell_escape(str)
+	local s = tostring(str)
+	if s:match("[^A-Za-z0-9_/:=-]") then
+		s = "'"..s:gsub("'", "'\\''").."'"
 	end
-	return table.concat(ret, " ")
+	return s
 end
 
 function sleep(seconds)
