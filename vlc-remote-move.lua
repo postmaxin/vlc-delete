@@ -15,6 +15,10 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
+function string.starts(String,Start)
+	return string.sub(String,1,string.len(Start))==Start
+end
+
 function descriptor()
 	return {
 		title = "VLC Delete";
@@ -60,16 +64,16 @@ function remove_from_playlist()
 	vlc.playlist.delete(id)
 end
 
-function current_uri_and_os()
+function current_uri()
 	local item = (vlc.player or vlc.input).item()
 	local uri = item:uri()
-	local is_posix = (package.config:sub(1, 1) == "/")
-	if uri:find("^file:///") ~= nil then
-		uri = string.gsub(uri, "^file:///", "")
+	if uri:find("^file://") ~= nil then
 		uri = vlc.strings.decode_uri(uri)
+		uri = string.gsub(uri, "^file://", "")
+		if not string.starts(uri, "/")
 		uri = "/" .. uri
 	end
-	return uri, is_posix
+	return uri
 end
 
 local move_dialog = nil
@@ -77,7 +81,8 @@ local ssh = "C:\\Windows\\System32\\OpenSSH\\ssh.exe"
 
 function move_to_target(target)
 	move_dialog:hide()
-	local uri, is_posix = current_uri_and_os()
+	local uri = current_uri()
+	vlc.msg.debug("Moving target " .. uri)
 	local escaped_uri = ssh_escape(uri)
 	command = {
 		ssh, 'faraway@192.168.2.68', '--', 'bin/vlc-remote-move',
