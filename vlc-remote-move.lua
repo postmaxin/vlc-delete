@@ -34,7 +34,8 @@ end
 
 --[[
   we are ssh'ing from Windows to Linux
-
+  Command is bourne shell escaped for the SSH command to Linux
+  then command is %-escaped for CMD.EXE
 ]]--
 function ssh_escape(str)
 	local s = tostring(str)
