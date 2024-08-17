@@ -75,7 +75,7 @@ local ssh = "C:\\Windows\\System32\\OpenSSH\\ssh.exe"
 function move_to_target(target)
 	move_dialog:hide()
 	local uri, is_posix = current_uri_and_os()
-	local escaped_uri = shell_escape(uri)
+	local escaped_uri = ssh_escape(uri)
 	command = {
 		ssh, 'faraway@192.168.2.68', '--', 'vlc-remote-move',
 		target, escaped_uri}
