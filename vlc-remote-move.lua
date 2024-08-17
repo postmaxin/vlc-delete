@@ -70,8 +70,9 @@ function current_uri()
 	if uri:find("^file://") ~= nil then
 		uri = vlc.strings.decode_uri(uri)
 		uri = string.gsub(uri, "^file://", "")
-		if not string.starts(uri, "/")
-		uri = "/" .. uri
+		if not string.starts(uri, "/") then
+			uri = "/" .. uri
+		end
 	end
 	return uri
 end
