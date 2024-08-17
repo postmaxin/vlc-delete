@@ -89,9 +89,10 @@ function move_to_target(target)
 end
 
 function build_dialog()
+	local target
 	local move_targets = {'keep', 'remove'}
 	move_dialog = vlc.dialog("Move where?")
-	for target in move_targets do
+	for i, target in ipairs(move_targets) do
 		local move_function = function()
 			move_to_target(target)
 		end
