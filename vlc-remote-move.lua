@@ -32,10 +32,15 @@ The author is not responsible for damage caused by this extension.
 	}
 end
 
-function shell_escape(str)
+--[[
+  we are ssh'ing from Windows to Linux
+
+]]--
+function ssh_escape(str)
 	local s = tostring(str)
 	if s:match("[^A-Za-z0-9_/:=-]") then
 		s = "'"..s:gsub("'", "'\\''").."'"
+		s = s:gsub("%", "%%")
 	end
 	return s
 end
@@ -71,8 +76,11 @@ function move_to_target(target)
 	move_dialog:hide()
 	local uri, is_posix = current_uri_and_os()
 	local escaped_uri = shell_escape(uri)
-	local pipe = assert(io.popen(
-		ssh, 'faraway@192.168.2.68', '--', 'vlc-remote-move', target, escaped_uri))
+	command = {
+		ssh, 'faraway@192.168.2.68', '--', 'vlc-remote-move',
+		target, escaped_uri}
+	command_str = table.concat(command, " ")
+	local pipe = assert(io.popen(command_str))
 	local output = pipe:read('*all')
 	success, error_message, error_code = pipe:close()
 	print(output)
@@ -81,6 +89,7 @@ function move_to_target(target)
 	else
 		vlc.msg.error(output)
 		vlc.msg.error("Error message: " .. error_message)
+
 	end
 	remove_from_playlist()
 end
