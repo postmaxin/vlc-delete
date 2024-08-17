@@ -40,7 +40,7 @@ function ssh_escape(str)
 	local s = tostring(str)
 	if s:match("[^A-Za-z0-9_/:=-]") then
 		s = "'"..s:gsub("'", "'\\''").."'"
-		s = s:gsub("%", "%%")
+		s = s:gsub("%%", "%%%%")
 	end
 	return s
 end
