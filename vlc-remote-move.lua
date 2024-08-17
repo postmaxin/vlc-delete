@@ -122,6 +122,7 @@ function activate()
 		build_dialog()
 	end
 	move_dialog:show()
+	deactivate()
 end
 
 function click_ok()

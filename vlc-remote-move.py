@@ -12,7 +12,7 @@ LOG_FORMAT = "%(asctime)s [%(process)d] [%(levelname)s] [%(name)s] %(message)s"
 
 mappings = {
     'S:/': '/sanity/',
-    '//192.168.2.68/': '/sanity/',
+    '/192.168.2.68/sanity/': '/sanity/',
 }
 
 prefixes = {
@@ -36,6 +36,14 @@ def find_target(target: str, start: Path) -> Path:
     return found.resolve()
 
 def move_to_target(target: str, path: Path):
+    valid = False
+    for prefix in prefixes:
+        if str(path).startswith(prefix):
+            valid = True
+            break
+    if not valid:
+        LOGGER.error("'%s' is not part of a valid prefix", path)
+        raise KeyError(f"'{path}' is not part of a valid prefix")
     if not path.exists():
         LOGGER.error("'%s' does not exist", path)
         raise KeyError(f"'{path}' does not exist")
