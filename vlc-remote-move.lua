@@ -83,6 +83,7 @@ function move_to_target(target)
 		ssh, 'faraway@192.168.2.68', '--', 'vlc-remote-move',
 		target, escaped_uri}
 	command_str = table.concat(command, " ")
+	vlc.msg.dbg(command_str)
 	local pipe = assert(io.popen(command_str))
 	local output = pipe:read('*all')
 	success, error_message, error_code = pipe:close()
@@ -90,6 +91,7 @@ function move_to_target(target)
 	if success then
 		vlc.msg.info(output)
 	else
+		vlc.msg.error("Command failed: " .. command_str)
 		vlc.msg.error(output)
 		vlc.msg.error("Error message: " .. error_message)
 
