@@ -15,7 +15,7 @@
 	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
 
-function string.starts(String,Start)
+function string_starts(String,Start)
 	return string.sub(String,1,string.len(Start))==Start
 end
 
@@ -70,7 +70,7 @@ function current_uri()
 	if uri:find("^file://") ~= nil then
 		uri = vlc.strings.decode_uri(uri)
 		uri = string.gsub(uri, "^file://", "")
-		if not string.starts(uri, "/") then
+		if not string_starts(uri, "/") then
 			uri = "/" .. uri
 		end
 	end
