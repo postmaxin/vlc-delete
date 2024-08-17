@@ -97,7 +97,7 @@ function build_dialog()
 end
 
 function activate()
-	if not move_dialog
+	if not move_dialog then
 		build_dialog()
 	end
 	move_dialog:show()
