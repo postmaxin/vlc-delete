@@ -68,8 +68,7 @@ function current_uri_and_os()
 	return uri, is_posix
 end
 
-local move_dialog = vlc.dialog("Move where?")
-local move_targets = {'keep', 'remove'}
+local move_dialog = nil
 
 function move_to_target(target)
 	move_dialog:hide()
@@ -89,11 +88,18 @@ function move_to_target(target)
 	remove_from_playlist()
 end
 
-for target in move_targets do
-	move_dialog:add_button(target, function() move_to_target(target) end)
+function build_dialog()
+	local move_targets = {'keep', 'remove'}
+	move_dialog = vlc.dialog("Move where?")
+	for target in move_targets do
+		move_dialog:add_button(target, function() move_to_target(target) end)
+	end
 end
 
 function activate()
+	if not move_dialog
+		build_dialog()
+	end
 	move_dialog:show()
 end
 
