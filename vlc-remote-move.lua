@@ -41,7 +41,9 @@ function ssh_escape(str)
 	local s = tostring(str)
 	if s:match("[^A-Za-z0-9_/:=-]") then
 		s = "'"..s:gsub("'", "'\\''").."'"
-		s = s:gsub("%%", "%%%%")
+		-- pattern has to be %-escaped for lua, so this actually
+		-- converts all '%' to '%%'
+		s = s:gsub("%%", "%%")
 	end
 	return s
 end
