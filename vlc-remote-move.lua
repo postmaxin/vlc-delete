@@ -81,7 +81,7 @@ function move_to_target(target)
 	local escaped_uri = ssh_escape(uri)
 	command = {
 		ssh, 'faraway@192.168.2.68', '--', 'vlc-remote-move',
-		target, escaped_uri}
+		target, escaped_uri, '2^>^&1'}
 	command_str = table.concat(command, " ")
 	vlc.msg.dbg(command_str)
 	local pipe = assert(io.popen(command_str))
