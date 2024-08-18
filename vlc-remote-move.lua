@@ -108,15 +108,14 @@ function move_to_target(target)
 	vlc.osd.message("Moved to " .. target .. ": " .. uri)
 end
 
+local targets = {'keep', 'remove'}
+
 function menu()
-	return {
-		keep = "Move to 'keep'",
-		remove = "Move to 'remove'"
-	}
+	return targets
 end
 
 function trigger_menu(target)
-	move_to_target(target)
+	move_to_target(targets[target])
 end
 
 function build_dialog()
