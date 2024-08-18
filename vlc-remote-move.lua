@@ -26,7 +26,7 @@ function descriptor()
 		author = "surrim";
 		url = "https://github.com/postmaxin/vlc-delete/";
 		shortdesc = "&Move file on remote server";
-		capabilities = {'menu'}
+		capabilities = {'menu'};
 		description = [[
 <h1>vlc-delete</h1>"
 When you're playing a file, use VLC Delete to
