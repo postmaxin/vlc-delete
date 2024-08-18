@@ -107,16 +107,16 @@ function move_to_target(target)
 	remove_from_playlist()
 end
 
-function menu() {
+function menu()
 	return {
 		"keep" = "Move to 'keep'";
 		"remove" = "Move to 'remove'";
 	}
-}
+end
 
-function trigger_menu(target) {
+function trigger_menu(target)
 	move_to_target(target)
-}
+end
 
 function build_dialog()
 	local target
