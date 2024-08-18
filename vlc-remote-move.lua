@@ -26,7 +26,7 @@ function descriptor()
 		author = "surrim";
 		url = "https://github.com/postmaxin/vlc-delete/";
 		shortdesc = "&Move file on remote server";
-		menu = true;
+		capabilities = {'menu'}
 		description = [[
 <h1>vlc-delete</h1>"
 When you're playing a file, use VLC Delete to
@@ -105,6 +105,7 @@ function move_to_target(target)
 
 	end
 	remove_from_playlist()
+	vlc.osd.message("Moved to " .. target .. ": " .. uri)
 end
 
 function menu()
