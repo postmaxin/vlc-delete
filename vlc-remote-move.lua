@@ -109,8 +109,8 @@ end
 
 function menu()
 	return {
-		"keep" = "Move to 'keep'",
-		"remove" = "Move to 'remove'"
+		keep = "Move to 'keep'",
+		remove = "Move to 'remove'"
 	}
 end
 
