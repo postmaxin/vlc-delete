@@ -26,6 +26,7 @@ function descriptor()
 		author = "surrim";
 		url = "https://github.com/postmaxin/vlc-delete/";
 		shortdesc = "&Move file on remote server";
+		menu = true;
 		description = [[
 <h1>vlc-delete</h1>"
 When you're playing a file, use VLC Delete to
@@ -78,6 +79,7 @@ function current_uri()
 end
 
 local move_dialog = nil
+local move_spinner = nil
 local ssh = "C:\\Windows\\System32\\OpenSSH\\ssh.exe"
 
 function move_to_target(target)
@@ -105,6 +107,17 @@ function move_to_target(target)
 	remove_from_playlist()
 end
 
+function menu() {
+	return {
+		"keep" = "Move to 'keep'";
+		"remove" = "Move to 'remove'";
+	}
+}
+
+function trigger_menu(target) {
+	move_to_target(target)
+}
+
 function build_dialog()
 	local target
 	local move_targets = {'keep', 'remove'}
@@ -118,11 +131,6 @@ function build_dialog()
 end
 
 function activate()
-	if not move_dialog then
-		build_dialog()
-	end
-	move_dialog:show()
-	deactivate()
 end
 
 function click_ok()
