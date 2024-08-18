@@ -55,6 +55,10 @@ def move_to_target(target: str, path: Path):
     LOGGER.info("Moving '%s' to '%s'", path, destination)
     destination.parent.mkdir(exist_ok=True)
     path.rename(destination)
+    # if folder is now empty, remove it
+    if not any(path.parent.iterdir()):
+        LOGGER.info("Removing empty folder '%s'", path.parent)
+        path.parent.rmdir()
 
 def remap_path(path: str) -> Path:
     path = path.replace('\\', '/')
